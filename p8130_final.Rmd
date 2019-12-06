@@ -1,0 +1,46 @@
+---
+title: "p8130_final"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(arsenal)
+df = read.csv("./data/Lawsuit.csv")
+```
+# data cleaning
+```{r}
+df_94 = 
+  df%>%
+  select(-Sal95)
+
+df_95 = 
+  df%>%
+  select(-Sal94)
+
+
+
+
+```
+# creating full model
+```{R}
+fit_full = lm(Sal94~.,data=df_94)
+summary(fit_full)
+anova(fit_full)
+
+
+```
+
+
+
+
+
+
+
+
+
+```{r}
+
+
+```
