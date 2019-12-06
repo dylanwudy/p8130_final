@@ -78,13 +78,18 @@ fit4 = lm(ln94~factor(gender)+factor(cert),data=df)
 fit5 = lm(ln94~factor(gender)+prate,data=df)
 fit6 = lm(ln94~factor(gender)+exper,data=df)
 fit7 = lm(ln94~factor(gender)+factor(rank),data=df)
-tidy(fit1)[2,2]
-tidy(fit2)[2,2]
-tidy(fit3)[2,2]
-tidy(fit4)[2,2]
-tidy(fit5)[2,2]
-tidy(fit6)[2,2]
-tidy(fit7)[2,2]
+model_name = c("fit1","fit2","fit3","fit4","fit5","fit6","fit7")
+rbind(
+  tidy(fit1)[2,2],
+  tidy(fit2)[2,2],
+  tidy(fit3)[2,2],
+  tidy(fit4)[2,2],
+  tidy(fit5)[2,2],
+  tidy(fit6)[2,2],
+  tidy(fit7)[2,2])%>%
+  cbind(model_name)%>%
+  dplyr::select(model_name,estimate)%>%
+  knitr::kable()
 ```
 dept and prate are confonder
 # model selection
