@@ -45,7 +45,8 @@ ggplot(aes(x=ln94),data=df)+geom_density()
 ggplot(aes(x=ln95),data=df)+geom_density()
 fit_1 = lm(ln94~factor(dept)+factor(gender)+factor(clin)+factor(cert)+prate+exper+factor(rank),data=df)
 summary(fit_1)
-
+fit_1.1 = lm(ln95~factor(dept)+factor(gender)+factor(clin)+factor(cert)+prate+exper+factor(rank),data=df)
+summary(fit_1.1)
 
 ```
 # interaction
@@ -60,12 +61,24 @@ fit_4 = lm(ln94~factor(gender)*factor(cert)+factor(dept)+factor(clin)+prate+expe
 fit_5 = lm(ln94~factor(gender)*prate+factor(dept)+factor(clin)+factor(cert)+exper+factor(rank),data=df)
 fit_6= lm(ln94~factor(gender)*exper+factor(dept)+factor(clin)+factor(cert)+prate+factor(rank),data=df)
 fit_7 = lm(ln94~factor(gender)*factor(rank)+factor(dept)+factor(clin)+factor(cert)+prate+exper,data=df)
+fit_8 = lm(ln95~factor(dept)*factor(gender)+factor(clin)+factor(cert)+prate+exper+factor(rank),data=df)
+anova(fit_1,fit_2)
+fit_9 = lm(ln95~factor(gender)*factor(clin)+factor(dept)+factor(cert)+prate+exper+factor(rank),data=df)
+fit_10 = lm(ln95~factor(gender)*factor(cert)+factor(dept)+factor(clin)+prate+exper+factor(rank),data=df)
+fit_11 = lm(ln95~factor(gender)*prate+factor(dept)+factor(clin)+factor(cert)+exper+factor(rank),data=df)
+fit_12= lm(ln95~factor(gender)*exper+factor(dept)+factor(clin)+factor(cert)+prate+factor(rank),data=df)
+fit_13 = lm(ln95~factor(gender)*factor(rank)+factor(dept)+factor(clin)+factor(cert)+prate+exper,data=df)
+
 anova(fit_1,fit_3)
 anova(fit_1,fit_4)
 anova(fit_1,fit_5)
 anova(fit_1,fit_6)
 anova(fit_1,fit_7)
-
+anova(fit_1.1,fit_8)
+anova(fit_1.1,fit_9)
+anova(fit_1.1,fit_10)
+anova(fit_1.1,fit_11)
+anova(fit_1.1,fit_12)
 ```
 interaction of rank and exper
 
@@ -78,7 +91,14 @@ fit4 = lm(ln94~factor(gender)+factor(cert),data=df)
 fit5 = lm(ln94~factor(gender)+prate,data=df)
 fit6 = lm(ln94~factor(gender)+exper,data=df)
 fit7 = lm(ln94~factor(gender)+factor(rank),data=df)
-model_name = c("fit1","fit2","fit3","fit4","fit5","fit6","fit7")
+fit8 = lm(ln95~factor(gender),data=df)
+fit9 = lm(ln95~factor(gender)+factor(dept),data=df)
+fit10= lm(ln95~factor(gender)+factor(clin),data=df)
+fit11 = lm(ln95~factor(gender)+factor(cert),data=df)
+fit12 = lm(ln95~factor(gender)+prate,data=df)
+fit13 = lm(ln95~factor(gender)+exper,data=df)
+fit14 = lm(ln95~factor(gender)+factor(rank),data=df)
+model_name = c("fit1","fit2","fit3","fit4","fit5","fit6","fit7","fit8","fit9","fit10","fit11","fit12","fit13","fit14")
 rbind(
   tidy(fit1)[2,2],
   tidy(fit2)[2,2],
@@ -86,7 +106,15 @@ rbind(
   tidy(fit4)[2,2],
   tidy(fit5)[2,2],
   tidy(fit6)[2,2],
-  tidy(fit7)[2,2])%>%
+  tidy(fit7)[2,2],
+  tidy(fit8)[2,2],
+  tidy(fit9)[2,2],
+  tidy(fit10)[2,2],
+  tidy(fit11)[2,2],
+  tidy(fit12)[2,2],
+  tidy(fit13)[2,2],
+  tidy(fit14)[2,2]
+  )%>%
   cbind(model_name)%>%
   dplyr::select(model_name,estimate)%>%
   knitr::kable()
@@ -95,9 +123,10 @@ dept and prate are confonder
 # model selection
 
 ```{r}
-fit=lm(ln94~factor(gender)*factor(rank)+factor(dept)+prate,data=df)
-
-plot(fit)
+fit_94=lm(ln94~factor(gender)*factor(rank)+factor(dept)+prate,data=df)
+fit_95=lm(ln95~factor(gender)*factor(rank)+factor(dept)+prate,data=df)
+plot(fit_94)
+plot(fit_95)
 
 ```
 
